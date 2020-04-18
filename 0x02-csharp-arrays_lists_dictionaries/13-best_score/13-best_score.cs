@@ -5,15 +5,15 @@ class Dictionary
 {
     public static string BestScore(Dictionary<string, int> myList)
     {
-        string maxKey = null;
+        string maxKey = "None";
 
         if (myList.Count == 0)
         {
-            return null;
+            return maxKey;
         }
         foreach (string key in myList.Keys)
         {
-            if (maxKey == null || myList[maxKey] < myList[key])
+            if (maxKey == "None" || myList[maxKey] < myList[key])
             {
                 maxKey = key;
             }
