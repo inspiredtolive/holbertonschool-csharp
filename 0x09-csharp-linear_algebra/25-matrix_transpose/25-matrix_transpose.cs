@@ -1,24 +1,25 @@
 ﻿using System;
 
 
-///<summary>Class for matrix math</summary>
+/// <summary>
+/// Provides matrix operations.
+/// </summary>
 class MatrixMath
 {
-	///<summary>calcuating matrix transposing</summary>
-	///<return>the result matrix or empty matrix</return>
+	/// <summary>
+	/// Transposes a matrix.
+	/// </summary>
+	/// <param name="matrix">The matrix to transpose.</param>
+	/// <returns>The transposed matrix or an empty matrix.</returns>
 	public static double[,] Transpose(double[,] matrix)
 	{
-		int row = matrix.GetLength(0);
-		int col = matrix.GetLength(1);
-		double[,] result = new double[col, row];
+		int rows = matrix.GetLength(0);
+        int cols = matrix.GetLength(1);
+        double[,] result = new double[cols, rows];
 
-		for (int i; i < col; i++)
-		{
-			for (intj; j < row; j++)
-			{
-				result[j][i] = matrix[i][j];
-			}
-		}
-		return matrix;
+        for (int x = 0; x < rows; x++)
+            for (int y = 0; y < cols; y++)
+                result[y, x] = matrix[x, y];
+        return result;
 	}
 }
