@@ -1,34 +1,38 @@
 ﻿using System;
 
-///<summary>Class for matrix math</summary>
+/// <summary>
+/// Provides matrix operations.
+/// </summary>
 class MatrixMath
 {
-	///<summary>calcuating matrix rotation</summary>
-	///<return>the result matrix or matrix containing -1</return>
+	/// <summary>
+	/// Rotates a 2D matrix.
+	/// </summary>
+	/// <param name="matrix">The matrix to rotate.</param>
+	/// <param name="angle">The angle to rotate by.</param>
+	/// <returns>The rotated matrix.</returns>
 	public static double[,] Rotate2D(double[,] matrix, double angle)
 	{
-		double[,] rotation = {
-			{Math.Cos(angle), -Math.Sin(angle)},
-			{Math.Sin(angle), Math.Cos(angle)}
-		};
-		int m_row = matrix.GetLength(0);
-		int m_col = matrix.GetLength(1);
-
-		if (2 == m_row)
+		if (matrix.GetLength(1) > 2)
 		{
-			double[,] result = new double[2, m_col];
-			for (int i = 0; i < m_row; i++)
+			return new double[,] { { -1 } };
+		}
+		double[,] rotationMatrix = {
+			{Math.Cos(angle), Math.Sin(angle)},
+			{-1 * Math.Sin(angle), Math.Cos(angle)}
+		};
+		double[,] transformedPoint = new double[2, 2];
+
+		for (int i = 0; i < 2; i++)
+		{
+			for (int j = 0; j < 2; j++)
 			{
-				for (int j = 0; j < 2; j++)
+				for (int k = 0; k < 2; k++)
 				{
-					for (int k = 0; k < m_col; k++)
-					{
-						result[i, j] += Math.Round(rotation[i, k] * matrix[k, j]);
-					}
+					transformedPoint[i, j] = Math.Round(transformedPoint[i, j] + (matrix[i, k] * rotationMatrix[k, j]), 2);
 				}
 			}
-			return result;
 		}
-		return new double[,] { { -1 } };
+		return transformedPoint;
 	}
 }
