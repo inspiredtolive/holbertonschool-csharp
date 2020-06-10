@@ -1,23 +1,24 @@
 ﻿using System;
 
-///<summary>Class for matrix math</summary>
+///<summary>Provides matrix operations.</summary>
 class MatrixMath
 {
-	///<summary>calcuating matrix determinant</summary>
-	///<return>the result double or-1</return>
+	/// <summary>
+	/// Computes the determinant of a matrix.
+	/// </summary>
+	/// <param name="matrix">The matrix to calculate the determinant of.</param>
+	/// <returns>The determinant.</returns>
 	public static double Determinant(double[,] matrix)
 	{
 		if (matrix.GetLength(0) == 2 && matrix.GetLength(1) == 2)
-		{
-			return matrix[0][0] * matrix[1][1] - (matrix[0][1] * matrix[1][0]);
-		}
+			return Math.Round(((matrix[0, 0] * matrix[1, 1]) - (matrix[0, 1] * matrix[1, 0])), 2);
 		else if (matrix.GetLength(0) == 3 && matrix.GetLength(1) == 3)
 		{
-			double a = matrix[0][0] * (matrix[1][1] * matrix[2][2] - (matrix[1][2] * matrix[2][1]));
-			double b = matrix[0][1] * (matrix[1][0] * matrix[2][2] - (matrix[1][2] * matrix[2][0]));
-			double c = matrix[0][2] * (matrix[1][0] * matrix[2][1] - (matrix[1][1] * matrix[2][0]));
-			return a - b + c;
+			double a = matrix[0, 0] * ((matrix[1, 1] * matrix[2, 2]) - (matrix[1, 2] * matrix[2, 1]));
+			double b = matrix[0, 1] * ((matrix[1, 0] * matrix[2, 2]) - (matrix[1, 2] * matrix[2, 0]));
+			double c = matrix[0, 2] * ((matrix[1, 0] * matrix[2, 1]) - (matrix[1, 1] * matrix[2, 0]));
+			return Math.Round((a - b + c),2);
 		}
-		reeturn - 1;
+		return - 1;
 	}
 }
