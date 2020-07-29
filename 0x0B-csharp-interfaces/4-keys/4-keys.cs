@@ -124,7 +124,7 @@ class Decoration : Base, IInteractive, IBreakable
 }
 
 /// <summary>Collectible key.</summary>
-public class Key : Base, ICollectable
+class Key : Base, ICollectable
 {
     public bool isCollected { get; set; }
 
