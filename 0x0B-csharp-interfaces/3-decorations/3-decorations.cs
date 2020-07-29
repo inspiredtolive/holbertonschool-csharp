@@ -1,0 +1,124 @@
+﻿using System;
+
+/// <summary>
+/// Provides an abstract base class.
+/// </summary>
+abstract class Base
+{
+    public string name = "";
+
+    /// <summary>
+    /// Gets the string representation of the instance.
+    /// </summary>
+    /// <returns>The string representation.</returns>
+    public override string ToString()
+    {
+        return String.Format("{0} is a {1}", name, this.GetType().Name);
+    }
+}
+
+interface IInteractive
+{
+    void Interact();
+}
+
+interface IBreakable
+{
+    int durability { get; set; }
+    void Break();
+}
+
+interface ICollectable
+{
+    bool isCollected { get; set; }
+    void Collect();
+}
+
+/// <summary>
+/// Represents a Door.
+/// </summary>
+class Door : Base, IInteractive
+{
+    /// <summary>
+    /// Sets the name of the Door.
+    /// </summary>
+    /// <param name="doorName">The name of the door (defaults to "Door").</param>
+    public Door(string doorName = "Door")
+    {
+        this.name = doorName;
+    }
+
+    /// <summary>
+    /// Prints interaction string.
+    /// </summary>
+    public void Interact()
+    {
+        Console.WriteLine(String.Format("You try to open the {0}. It's locked.", this.name));
+    }
+}
+
+/// <summary>
+/// Represents a Decoration.
+/// </summary>
+class Decoration : Base, IInteractive, IBreakable
+{
+    public int durability { get; set; } = 1;
+    public bool isQuestItem = false;
+
+    /// <summary>
+    /// The decoration constructor.
+    /// </summary>
+    /// <param name="name">The nameof the Decoration.</param>
+    /// <param name="durability">The durability of the Decoration.</param>
+    /// <param name="isQuestItem">Whether the Decoration is a quest item.</param>
+    public Decoration(string name = "Decoration", int durability = 1, bool isQuestItem = false)
+    {
+        if (durability <= 0)
+        {
+            throw new Exception("Durability must be greater than 0");
+        }
+        this.name = name;
+        this.durability = durability;
+        this.isQuestItem = isQuestItem;
+    }
+
+    /// <summary>
+    /// Interacts with the Decoration.
+    /// </summary>
+    public void Interact()
+    {
+        if (this.durability <= 0)
+        {
+            Console.WriteLine(String.Format("The {0} has been broken.", this.name));
+        }
+        else if (this.isQuestItem == true)
+        {
+            Console.WriteLine(String.Format("You look at the {0}. There's a key inside.", this.name));
+        }
+        else
+        {
+            Console.WriteLine(String.Format("You look at the {0}. Not much to see here.", this.name));
+        }
+    }
+
+    /// <summary>
+    /// Attempts to break the Decoration.
+    /// </summary>
+    public void Break()
+    {
+        if (this.durability <= 0)
+        {
+            Console.WriteLine(String.Format("The {0} is already broken.", this.name));
+            return;
+        }
+        this.durability--;
+        if (this.durability == 0)
+        {
+            Console.WriteLine(String.Format("You smash the {0}. What a mess.", this.name));
+        }
+        else
+        {
+            Console.WriteLine(String.Format("You hit the {0}. It cracks.", this.name));
+        }
+    }
+}
